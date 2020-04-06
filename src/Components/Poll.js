@@ -1,26 +1,45 @@
 import React from "react";
 import Avatars from "./Avatar";
 import {useSelector} from "react-redux";
-import {Link, Route} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
+import {Body, SubTitle} from "./UI/text/TextOptions";
+import {Wrapper, Row, Col, Container} from "./UI/shared/Container"
+import {Profile, Question, Text} from "./UI/styles/Poll";
+import {StyledLink} from "./UI/elements/Button";
 
-export default function Poll(props) {
+
+
+const Poll = withRouter((props) => {
     const question = useSelector(state => state.question[props.id])
     const avatar =  useSelector(state => state.users[question.author].avatarURL)
 
     const {id, author, timestamp, optionOne, optionTwo} = question;
     return (
-        <div className="question-info">
-            <Avatars avatar={avatar}/>
-            <h3>Would you rather...</h3>
-            <p><em>{`${optionOne.text}....`}</em></p>
-            <button><Link to={'/home/question/:qid'}>Go to poll</Link></button>
+        <Container>
+        <Wrapper padding={'15px'}>
+            <Row>
+                <Col size={2} align={'flex-start'}>
+                    <Profile>
+                        <Avatars avatar={avatar}/>
+                        <SubTitle>{`@${question.author}`}</SubTitle>
+                    </Profile>
+                </Col>
+                <Col size={1} >
+                    <Row direction={"column"}>
+                        <Question>
+                            <SubTitle>Would you rather...</SubTitle>
+                            <Text>{`${optionOne.text}....`}</Text>
+                            <StyledLink to={{pathname: `/question/${id}`, answer: "false"}}>Go to Poll </StyledLink>
+                        </Question>
+                    </Row>
+                </Col>
+            </Row>
+        </Wrapper>
 
-            <div className="routes">
-                <Route></Route>
-            </div>
-
-        </div>
+        </Container>
     )
 
 
-}
+});
+
+export default Poll

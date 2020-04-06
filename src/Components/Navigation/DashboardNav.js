@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 
-export default function DashNav(props) {
+const DashNav = (props)=> {
 
     return(
         <div>
@@ -21,3 +21,5 @@ export default function DashNav(props) {
         </div>
     )
 }
+
+export default DashNav

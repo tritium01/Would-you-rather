@@ -13,11 +13,11 @@ const Container = styled.div`
   flex: 1;
   justify-content: center;
 `
-const Answered = (props) => {
-    const question = useSelector(state => state.question[props.id]);
-    const avatar =  useSelector(state => state.users[question.author].avatarURL);
-    const totalOne = (question.optionOne.votes.length);
-    const totalTwo = (question.optionTwo.votes.length);
+const JustAnswered = (props) => {
+    const question = useSelector(state => state.question[props.id])
+    const avatar =  useSelector(state => state.users[question.author].avatarURL)
+    const totalOne = (question.optionOne.votes.length)
+    const totalTwo = (question.optionTwo.votes.length)
     const chosen = (question.optionOne.votes.includes(question.author))? 'optionOne' : 'optionTwo';
 
 
@@ -27,17 +27,14 @@ const Answered = (props) => {
         return answer
     }
 
-    //STILL NEEDS FIXING
     return (
-            <Wrapper>
-                <Row>
-                <Col size={1}>
-                    <Profile>
-                        <Avatars avatar={avatar}/>
-                        <SubTitle>{`@${question.author}`}</SubTitle>
-                    </Profile>
-                </Col>
-                <Col size={2} justify={'center'}>
+        <Container>
+        <Wrapper>
+                    <Row>
+                        <Col>
+                            <SubTitle>Your answer is:</SubTitle>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col size={1} >
                             <Question shadow={chosen === "optionOne" ?'0px 0px 5px 1px rgba(0,0,0,0.19)' : ''} margin={'15px 80px'} >
@@ -60,13 +57,12 @@ const Answered = (props) => {
                             </Question>
                         </Col>
                     </Row>
-                </Col>
-                </Row>
-            </Wrapper>
+        </Wrapper>
+        </Container>
     )
 
 
 
 }
 
-export default Answered;
+export default JustAnswered

@@ -1,28 +1,72 @@
 import React, {useState} from 'react'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {Redirect} from 'react-router-dom'
 import Avatars from "./Avatar";
+import {handleAddQuestionAnswer} from "../Store/Actions/questions";
+import JustAnswered from "./JustAnswered";
+import {InputGroup, Input, Label} from "./UI/elements/RadioButton";
+import {Container, Wrapper, Row, Col} from "./UI/shared/Container";
+import {Profile} from "./UI/styles/Poll";
+import Button from "./UI/elements/Button";
+import {SubTitle} from "./UI/text/TextOptions";
 
+const Question = ({match}) => {
+    const question = useSelector(state => state.question[match.params.question_id])
+    const avatar = useSelector(state => state.users[question.author].avatarURL)
+    const authedUser = useSelector(state => state.authedUser)
+    const [answer, setAnswer] = useState("")
+    const [answered, setAnswered] = useState(false)
+    const dispatch = useDispatch();
+    const {id, optionOne, optionTwo} = question
 
-
-function Question(props) {
-    const question = useSelector(state => state.question[props.id])
-    const avatar =  useSelector(state => state.users[question.author].avatarURL)
-
-    const handleSubmit = ()=> {
-
+    const handleChange = (e)=> {
+        setAnswer(e.target.value)
     }
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-        const {id, author, timestamp, optionOne, optionTwo} = question;
-        return (
-            <div className="question-info">
-                <Avatars avatar={avatar}/>
-                <form onSubmit={handleSubmit}>
-                    <input type="radio" value={optionOne}>{optionOne.text}</input>
-                    <input type="radio" value={optionTwo}>{optionTwo.text}</input>
-                </form>
-            </div>
-        )
+        dispatch(handleAddQuestionAnswer({
+            authedUser,
+            qid: id,
+            answer
+        }))
 
+        setAnswered(true)
+    }
+    if (answered){
+        return <JustAnswered id={id}/>
+    }
+    return (
+
+        <Container>
+            <Wrapper padding={'15px'}>
+                <Row>
+                    <Col size={2}>
+                        <Profile>
+                            <Avatars avatar={avatar}/>
+                            <SubTitle>{`@${question.author}`}</SubTitle>
+                        </Profile>
+                    </Col>
+                    <Col size={1}>
+                        <form onChange={(e)=> handleChange(e)}>
+                            <Row direction={'column'}>
+                                <Col size={2}>
+                                    <input type="radio" value="optionOne"/><label>{optionOne.text}</label>
+                                </Col>
+                                <Col size={2}>
+                                    <input type="radio" value="optionTwo"/><label>{optionTwo.text}</label>
+                                </Col>
+                                <Col size={1}>
+                                 <Button onClick={(e)=> handleSubmit(e)}>Submit your Choice</Button>
+                                </Col>
+                            </Row>
+                        </form>
+
+                    </Col>
+                </Row>
+            </Wrapper>
+        </Container>
+    )
 
 
 }

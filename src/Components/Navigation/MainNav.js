@@ -1,35 +1,64 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {Link, withRouter, NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setAuthedUser} from "../../Store/Actions/authedUser";
+import {Redirect} from 'react-router-dom'
+import Login from "../Login";
+import AuthButton from './AuthButton'
+import {NavList, StyledLink, NavItems} from "../UI/styles/MainNav";
+
+const styles = {
+    nav: {
+        textDecoration: 'none',
+        listStyleType: 'none',
+        flexDirection: 'row',
+        display: 'flex',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-evenly'
+    },
+    navItem: {
+        textDecoration: 'none',
+    }
+}
 
 
-export default function Nav() {
-    const user = useSelector(state => state.authedUser != null ? state.users[state.authedUser].name : " ")
-    console.log(user)
+
+const Nav = () => {
+    const user = useSelector(state => state.authedUser != null ? state.users[state.authedUser].name : null)
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        dispatch(setAuthedUser(null))
+    }
     return(
-        <nav className="nav">
-            <ul>
-                <li>
-                    <Link to='/home'>
+
+            <NavList>
+                <NavItems>
+                    <StyledLink to='/'>
                         Home
-                    </Link>
-                </li>
-                <li>
-                    <Link to='/home/add'>
+                    </StyledLink>
+                </NavItems>
+                <NavItems>
+                    <StyledLink to='/add'>
                         New Question
-                    </Link>
-                </li>
-                <li>
-                    <Link to='/home/leaderboard'>
+                    </StyledLink>
+                </NavItems>
+                <NavItems>
+                    <StyledLink to='/leaderboard'>
                         LeaderBoard
-                    </Link>
-                </li>
-                <li>
+                    </StyledLink>
+                </NavItems>
+                <NavItems>
                     {`Welcome back, ${user}`}
-                </li>
-            </ul>
-        <hr/>
-        </nav>
+                </NavItems>
+                <NavItems>
+                    <AuthButton/>
+                </NavItems>
+            </NavList>
+
+
 
     )
 }
+
+export default Nav
