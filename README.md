@@ -16,12 +16,24 @@ Local development environment
 ```
 
 ### Installing
+For development purposes please use:
+```
+npm install
+```
+Or
+```
+yarn install
+```
+
+### Launching
 
 ```
-Please use npm install or yarn install for development purpose
+npm start
 ```
-
-And repeat
+Or
+```
+yarn start
+```
 
 
 ## Deployment
