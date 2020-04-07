@@ -1,18 +1,10 @@
 import React from "react";
 import Avatars from "./Avatar";
 import {useSelector} from "react-redux";
-import {Wrapper, Row, Col, List} from "./UI/shared/Container";
+import {Wrapper, Row, Col, List, Container} from "./UI/shared/Container";
 import {SubTitle, Body} from "./UI/text/TextOptions";
 import {Profile, Question} from './UI/styles/Poll'
 
-const styles = {
-    container: {
-        display: 'flex',
-        alignItems: 'center',
-        flex: 1,
-        justifyContent: 'space-evenly'
-    },
-}
 
 const Leaderboard = () => {
     const users = useSelector(state => state.users);
@@ -29,9 +21,7 @@ const Leaderboard = () => {
 
 //            <h2>LeaderBoard</h2> DON'T FORGET
     return(
-        <div style={styles.container} className="container">
-
-
+        <Container>
             <List>
                 {sorted.map(user=>(
 
@@ -66,10 +56,9 @@ const Leaderboard = () => {
 
                 ))}
             </List>
-
-        </div>
+        </Container>
     )
 
-}
+};
 
 export default Leaderboard

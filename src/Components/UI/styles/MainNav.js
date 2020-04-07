@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import {NavLink} from "react-router-dom";
 
@@ -25,6 +24,6 @@ export const NavList = styled.ul`
   flex: 1;
   align-items: center;
   justify-content: center;
-  margin-bottom: 35px;
+  margin: 20px 0 40px 0;
 `;
 

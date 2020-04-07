@@ -1,4 +1,3 @@
-import React from "react";
 import colors from "../../../utils/colors";
 import styled from "styled-components";
 import {Link} from 'react-router-dom'
@@ -38,7 +37,7 @@ font-weight: 600;
 color: white;
 background-color: ${colors.primary};
 width: 220px;
-height: 36px;
+height: 44px;
 border-radius: 8px;
 display: flex;
 align-items: center;
@@ -62,5 +61,4 @@ transition: background 250ms ease-in-out,
   }
 
 `
-
 export default Button

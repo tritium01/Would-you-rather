@@ -3,10 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {handleAddQuestion} from "../Store/Actions/questions";
 import {Redirect, Prompt} from "react-router-dom"
 import {Wrapper, Row, Col, Container} from "./UI/shared/Container";
-import {Input, NewInput} from "./UI/styles/NewInput";
 import {SubTitle} from "./UI/text/TextOptions";
 import Button from "./UI/elements/Button";
 import {TextInput} from "./Navigation/TextInput";
+import {toast} from 'react-toastify'
 
 const NewQuestion = () => {
     const author = useSelector(state => state.authedUser)
@@ -17,19 +17,20 @@ const NewQuestion = () => {
     const dispatch = useDispatch();
 
     const handleChangeOne = (e)=> {
-        setTextOne(e.target.value)
+        setTextOne(e.target.value);
         setIsBlocking(e.target.value.length > 0)
     };
     const handleChangeTwo = (e)=> {
-        setTextTwo(e.target.value)
+        setTextTwo(e.target.value);
         setIsBlocking(e.target.value.length > 0)
     };
     const handleSubmit = (e)=> {
-        e.preventDefault()
+        e.preventDefault();
         dispatch(handleAddQuestion(textOne, textTwo, author));
         setTextOne("");
         setTextTwo("");
         setToHome(true);
+        toast.success("Your question was successfully added")
     };
 
     if (toHome) {
@@ -37,7 +38,7 @@ const NewQuestion = () => {
     }
     return (
         <Container>
-        <Wrapper padding={'15px'}>
+        <Wrapper padding={'100px'}>
                 <Prompt
                     when={isBlocking}
                     message={location =>
@@ -45,7 +46,7 @@ const NewQuestion = () => {
                 />
             <Row>
                 <Col size={1} padding={'0 0 15px 0'}>
-                    <SubTitle>Make your own would you rather</SubTitle>
+                    <SubTitle>Would you rather</SubTitle>
                 </Col>
             </Row>
             <Row direction={'column'}>
@@ -77,6 +78,6 @@ const NewQuestion = () => {
         </Wrapper>
         </Container>
     )
-}
+};
 
 export default NewQuestion

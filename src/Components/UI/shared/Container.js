@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -33,7 +32,7 @@ export const Wrapper = styled.section`
   padding: ${props => props.padding || '0'};
   width: ${props => props.width};
   justify-content: ${props => props.content || 'center'};
-
+  border-radius: 6px;
 `;
 
 

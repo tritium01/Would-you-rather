@@ -1,4 +1,3 @@
-import React from "react";
 import {hideLoading, showLoading} from "react-redux-loading";
 import {saveQuestion, saveQuestionAnswer} from "../../utils/api";
 

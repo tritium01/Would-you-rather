@@ -4,21 +4,23 @@ import './index.css'
 import App from './Components/App'
 import {createStore} from "redux";
 import {Provider} from 'react-redux'
-import {ToastProvider} from 'react-toast-notifications'
+import {toast, ToastContainer} from "react-toastify";
 import reducer from "./Store/Reducers"
 import middleware from "./Store/Middleware"
 import {composeWithDevTools} from "redux-devtools-extension";
 import './fonts/Roboto-Regular.ttf'
 import './fonts/Roboto-Medium.ttf'
+import 'react-toastify/dist/ReactToastify.min.css'
 
 
 const store = createStore(reducer, composeWithDevTools(middleware));
+toast.configure();
+
 
 ReactDOM.render(
     <Provider store={store}>
-    <ToastProvider>
+    <ToastContainer/>
     <App />
-    </ToastProvider>
     </Provider>,
 
     document.getElementById('root'));

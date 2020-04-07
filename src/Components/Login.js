@@ -4,43 +4,50 @@ import {setAuthedUser} from "../Store/Actions/authedUser";
 import {Redirect, withRouter} from 'react-router-dom'
 import Button from "./UI/elements/Button";
 import {Container, Wrapper, Row, Col} from "./UI/shared/Container";
-import styled from "styled-components";
-
+import {Select} from "./UI/elements/input";
+import {Title} from "./UI/text/TextOptions";
+import {toast} from "react-toastify";
 
 
 const Login = withRouter((props) => {
         const {users} = useSelector(state => state);
         const dispatch =  useDispatch();
-        const [id, setId] = useState("null");
+        const [id, setId] = useState(null);
         const [redirect, setRedirect] = useState(false);
-        const from = props.location.state.from.pathname || {from: {pathname: '/'}};
+        const from = (props.location.state && props.location.state.from.pathname) || {from: {pathname: '/'}};
 
         const handleLogIn = ()=>{
-            dispatch(setAuthedUser(id));
-            setRedirect(true);
+            if(id !== null) {
+                dispatch(setAuthedUser(id));
+                setRedirect(true);
+            } else {
+                toast.warn("Please select a user")
+            }
         }
-
         if(redirect){
           return <Redirect to={from === undefined ? './' : from}/>
         }
 
         return (
                 <Container>
-                    <Wrapper padding={'15px'}>
+                    <Wrapper padding={'100px'}>
+                        <Row>
+                            <Title>Would you rather</Title>
+                        </Row>
                         <Row>
                             <Col>
-                        <select onChange={(e)=> setId(e.target.value)}>
+                        <Select onChange={(e)=> setId(e.target.value)}>
                                 <option>Please select your user</option>
                             {users && Object.values(users).map(user => (
                                 <option value={user.id} key={user.id}>{user.name}</option>
                             ))
                             }
-                        </select>
+                        </Select>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                             <Button onClick={()=> handleLogIn()}>Login</Button>
+                             <Button onClick={(e)=> handleLogIn()}>Login</Button>
                             </Col>
                         </Row>
                     </Wrapper>

@@ -1,9 +1,8 @@
-import React, {useState} from "react";
 import styled from "styled-components";
 import colors from "../../../utils/colors";
 
 export const Profile = styled.div`
-      border-color: pink;
+      border-color: ${colors.primary};
       border-style: solid;
       border-width: 0 2px 0 0;
       padding-right: 40px;

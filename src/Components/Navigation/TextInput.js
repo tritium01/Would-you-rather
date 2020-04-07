@@ -1,9 +1,4 @@
-import React from "react";
 import styled from "styled-components";
-import colors from "../../utils/colors";
-const TextInputs = () => {
-
-}
 
 export const TextInput = styled.textarea`
   width: 220px;
